@@ -13,27 +13,26 @@ namespace StatePattern.Enemy
         public OnePunchManController(EnemyScriptableObject enemyScriptableObject) : base(enemyScriptableObject)
         {
             enemyView.SetController(this);
-            InitializeVariables();
             onePunchManStateMachine = new OnePunchManStateMachine(this);
+            onePunchManStateMachine.ChangeState(OnePunchManStates.Idle);
         }
 
-        private void InitializeVariables()
-        {
-            
-        }
 
         public override void UpdateEnemy()
         {
             if (currentState == EnemyState.DEACTIVE)
                 return;
 
+            onePunchManStateMachine.Update();
+
         }
 
         public override void PlayerEnteredRange(PlayerController targetToSet)
         {
             base.PlayerEnteredRange(targetToSet);
-            onePunchManStateMachine.ChangeState(OnePunchManStates.Shooting);
             target = targetToSet;
+            onePunchManStateMachine.ChangeState(OnePunchManStates.Shooting);
+            
         }
 
         public override void PlayerExitedRange() 

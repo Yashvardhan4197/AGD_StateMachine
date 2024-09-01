@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class OnePunchManStateMachine : MonoBehaviour
+public class OnePunchManStateMachine
 {
     public OnePunchManController Owner {  get; private set; }
     private Dictionary<OnePunchManStates, IStates> states = new Dictionary<OnePunchManStates, IStates>();
@@ -32,7 +32,7 @@ public class OnePunchManStateMachine : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Update()
     {
         currentState?.Update();
     }
