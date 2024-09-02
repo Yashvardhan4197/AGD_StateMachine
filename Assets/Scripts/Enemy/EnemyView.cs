@@ -19,7 +19,7 @@ namespace StatePattern.Enemy
         private void Start()
         {
             rangeTriggerCollider = GetComponent<SphereCollider>();
-            Controller?.InitializeAgent();
+            Controller.InitializeAgent();
         }
 
         public void SetController(EnemyController controllerToSet) => Controller = controllerToSet;

@@ -1,20 +1,15 @@
 ﻿using StatePattern.Main;
 using StatePattern.StateMachine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace StatePattern.Enemy
 {
     public class CloneState<T> : IState where T : CloneManController
     {
-        public EnemyController Owner {  get; set; }
         private CloneManStateMachine stateMachine;
+        public EnemyController Owner {  get; set; }
+        
         public CloneState(CloneManStateMachine cloneManStateMachine)
         {
             stateMachine = cloneManStateMachine;
@@ -25,6 +20,10 @@ namespace StatePattern.Enemy
             CreateNewEnemy();
             stateMachine.ChangeState(States.CHASING);
         }
+
+        public void OnStateExit() { }
+
+        public void Update() { }
 
         private void CreateNewEnemy()
         {
@@ -58,21 +57,15 @@ namespace StatePattern.Enemy
 
         private Vector3 NewLocation()
         {
-            Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * Owner.Data.TeleportingRadius + Owner.Position;
+            Vector3 randomDirection = Random.insideUnitSphere * Owner.Data.TeleportingRadius + Owner.Position;
 
             NavMeshHit Hit;
             if (NavMesh.SamplePosition(randomDirection, out Hit, Owner.Data.TeleportingRadius, NavMesh.AllAreas))
                 return Hit.position;
-            return Owner.Data.SpawnRotation;
+            return Owner.Data.SpawnPosition;
         }
 
 
-        public void OnStateExit()
-        {
-        }
-
-        public void Update()
-        {
-        }
+        
     }
 }

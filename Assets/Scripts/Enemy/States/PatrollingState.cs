@@ -23,7 +23,7 @@ namespace StatePattern.Enemy
 
         public void Update()
         {
-            if(Owner!=null&&ReachedDestination())
+            if(Owner.Agent!=null&&ReachedDestination())
                 stateMachine.ChangeState(States.IDLE);
         }
 

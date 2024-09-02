@@ -10,6 +10,7 @@ namespace StatePattern.Enemy
     public class CloneManStateMachine : GenericStateMachine<CloneManController>
     {
         public Vector3 spawnPos;
+
         public CloneManStateMachine(CloneManController Owner) : base(Owner)
         {
             this.Owner = Owner;

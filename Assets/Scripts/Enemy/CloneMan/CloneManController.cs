@@ -15,6 +15,7 @@ namespace StatePattern.Enemy
             CreateStateMachine();
             stateMachine.ChangeState(States.IDLE);
         }
+
         private void CreateStateMachine() => stateMachine = new CloneManStateMachine(this);
 
         public override void UpdateEnemy()
