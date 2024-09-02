@@ -9,7 +9,7 @@ namespace StatePattern.Enemy
         public EnemyController Owner { get; set; }
         private IStateMachine stateMachine;
         private float targetRotation;
-
+        public EnemyType currentType { get; set; }
         public RotatingState(IStateMachine stateMachine) => this.stateMachine = stateMachine;
 
         public void OnStateEnter() => targetRotation = (Owner.Rotation.eulerAngles.y + 180) % 360;

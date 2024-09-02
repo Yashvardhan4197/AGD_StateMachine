@@ -38,6 +38,7 @@ namespace StatePattern.Enemy
             {
                 state.Owner = Owner;
             }
+            StateList[States.IDLE].currentType = Owner.Data.Type;
         }
 
         public void Update()

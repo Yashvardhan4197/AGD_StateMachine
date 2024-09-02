@@ -10,6 +10,7 @@ namespace StatePattern.Enemy
         private IStateMachine stateMachine;
         private PlayerController target;
         private float shootTimer;
+        public EnemyType currentType { get; set; }
 
         public ShootingState(IStateMachine stateMachine) => this.stateMachine = stateMachine;
 

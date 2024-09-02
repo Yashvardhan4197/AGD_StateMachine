@@ -18,6 +18,7 @@ namespace StatePattern.Enemy
         public void CreateStates()
         {
             StateList.Add(Enemy.States.IDLE, new IdleState(this));
+
             StateList.Add(Enemy.States.ROTATING, new RotatingState(this));
             StateList.Add(Enemy.States.SHOOTING, new ShootingState(this));
         }
@@ -28,6 +29,7 @@ namespace StatePattern.Enemy
             {
                 state.Owner = Owner;
             }
+            StateList[States.IDLE].currentType=Owner.Data.Type;
         }
 
         public void Update() => currentState?.Update();

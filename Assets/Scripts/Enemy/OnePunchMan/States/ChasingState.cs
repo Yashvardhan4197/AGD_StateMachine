@@ -14,6 +14,7 @@ namespace StatePattern.Enemy
         public EnemyController Owner { get; set; }
         private IStateMachine stateMachine;
         private PlayerController target;
+        public EnemyType currentType { get; set; }
 
         public ChasingState(IStateMachine stateMachine)=>this.stateMachine = stateMachine;
 
@@ -31,21 +32,37 @@ namespace StatePattern.Enemy
         public void OnStateExit()
         {
             target = null;
-            Owner.Agent.isStopped = true;
+            ResetPath();
         }
 
         public void Update()
         {
             Vector3 targetPos= target.Position;
             Owner.Agent.SetDestination(targetPos);
-            if (Owner.Agent.remainingDistance <= Owner.Agent.stoppingDistance)
+            if (IsReachedDestination())
             {
-                Owner.Agent.isStopped = true;
+                ResetPath();
+                stateMachine.ChangeState(States.SHOOTING);
             }
             else
             {
                 Owner.Agent.isStopped= false;
             }
+        }
+
+        private bool IsReachedDestination()
+        {
+            if (Owner.Agent.remainingDistance <= Owner.Agent.stoppingDistance)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ResetPath()
+        {
+            Owner.Agent.isStopped = true;
+            Owner.Agent.ResetPath();
         }
     }
 }

@@ -1,3 +1,4 @@
+using StatePattern.Main;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +10,26 @@ namespace StatePattern.Enemy
         public EnemyController Owner { get; set; }
         private IStateMachine stateMachine;
         private float timer;
+        public EnemyType currentType {  get; set; }
 
-        public IdleState(IStateMachine stateMachine) => this.stateMachine = stateMachine;
+        public IdleState(IStateMachine stateMachine)
+        {
+            this.stateMachine = stateMachine;
+        }
 
         public void OnStateEnter() => ResetTimer();
 
         public void Update()
         {
             timer -= Time.deltaTime;
-            if (timer <= 0)
+            if (timer <= 0 && currentType == EnemyType.OnePunchMan)
+            {
                 stateMachine.ChangeState(States.ROTATING);
+            }
+            else if (timer <= 0 && currentType == EnemyType.DashMan)
+            {
+                stateMachine.ChangeState(States.PATROLLING);
+            }
         }
 
         public void OnStateExit() => timer = 0;

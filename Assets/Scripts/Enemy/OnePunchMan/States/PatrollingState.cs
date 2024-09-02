@@ -13,7 +13,7 @@ namespace StatePattern.Enemy
         private IStateMachine stateMachine;
         private int currentPatrollingIndex=0;
         private Vector3 destination;
-
+        public EnemyType currentType { get; set; }
         public PatrollingState(IStateMachine stateMachine)=>this.stateMachine = stateMachine;
 
         
@@ -31,7 +31,7 @@ namespace StatePattern.Enemy
 
         private void SetPatrollingIndex()
         {
-            if (currentPatrollingIndex >= Owner.Data.PatrollingPoints.Count)
+            if (currentPatrollingIndex >= Owner.Data.PatrollingPoints.Count-1)
             {
                 currentPatrollingIndex = 0;
                 return;
