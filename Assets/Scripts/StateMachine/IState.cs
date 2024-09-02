@@ -1,6 +1,6 @@
 using StatePattern.Enemy;
 
-namespace StatePattern.StateMachine
+namespace StatePattern.Enemy
 {
     public interface IState
     {
