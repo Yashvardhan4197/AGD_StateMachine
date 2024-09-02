@@ -46,6 +46,10 @@ namespace StatePattern.Enemy
             {
                 enemyGraphic.color = Color.red;
             }
+            else if (Controller.Data.Type == EnemyType.Robot)
+            {
+                enemyGraphic.color = Color.magenta;
+            }
             else
             {
                 enemyGraphic.color = Color.white;
@@ -80,6 +84,11 @@ namespace StatePattern.Enemy
             Controller.ToggleKillOverlay(false);
 
             Destroy(gameObject);
+        }
+
+        public void ChangeEnemyColor(Color color)
+        {
+            enemyGraphic.color = color;
         }
 
     }

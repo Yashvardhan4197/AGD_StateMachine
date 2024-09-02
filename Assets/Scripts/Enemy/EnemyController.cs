@@ -8,7 +8,7 @@ namespace StatePattern.Enemy
 {
     public class EnemyController
     {
-        protected EnemyScriptableObject enemyScriptableObject;
+        public EnemyScriptableObject enemyScriptableObject;
         protected EnemyView enemyView;
 
         protected int currentHealth;
@@ -17,7 +17,7 @@ namespace StatePattern.Enemy
         public EnemyScriptableObject Data => enemyScriptableObject;
         public Quaternion Rotation => enemyView.transform.rotation;
         public Vector3 Position => enemyView.transform.position;
-
+        public int CloneNumber=0;
 
         public EnemyController(EnemyScriptableObject enemyScriptableObject)
         {
@@ -78,6 +78,15 @@ namespace StatePattern.Enemy
         public virtual void PlayerExitedRange() { }
 
         public virtual void UpdateEnemy() { }
+
+        public virtual void CloneEnemy(Vector3 spawnPos) { }
+
+        public virtual void ChangeEnemyColor(Color color)=>enemyView.ChangeEnemyColor(color);
+
+        public void SetCloneNumber(int number)
+        {
+            CloneNumber = number;
+        }
     }
 
     public enum EnemyState

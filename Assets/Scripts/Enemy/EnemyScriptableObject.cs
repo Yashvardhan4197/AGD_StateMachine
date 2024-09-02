@@ -16,7 +16,8 @@ namespace StatePattern.Enemy
         public float MovementSpeed;
         public int MaximumHealth;
         public float RangeRadius;
-        public float TeleportingRadius;
+        public float TeleportingRadius=4;
+        public int SpawnTimes = 0;
 
         public float IdleTime;
         public float RotationSpeed;

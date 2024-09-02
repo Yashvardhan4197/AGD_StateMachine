@@ -15,6 +15,7 @@ namespace StatePattern.Enemy
 
         public void OnStateEnter()
         {
+            Owner.Agent.isStopped = false;
             SetNextWaypointIndex();
             destination = GetDestination();
             MoveTowardsDestination();
@@ -22,7 +23,7 @@ namespace StatePattern.Enemy
 
         public void Update()
         {
-            if(ReachedDestination())
+            if(Owner!=null&&ReachedDestination())
                 stateMachine.ChangeState(States.IDLE);
         }
 

@@ -15,6 +15,7 @@ namespace StatePattern.Enemy
 
         private List<EnemyController> activeEnemies;
         private int spawnedEnemies;
+        //private Dictionary<EnemyController, int> ClonedEnemies;
 
         public EnemyService()
         {
@@ -22,7 +23,11 @@ namespace StatePattern.Enemy
             SubscribeToEvents();
         }
 
-        private void InitializeVariables() => activeEnemies = new List<EnemyController>();
+
+        private void InitializeVariables()
+        {
+            activeEnemies = new List<EnemyController>();
+        }
 
         private void SubscribeToEvents() => GameService.Instance.EventService.OnLevelSelected.AddListener(SpawnEnemies);
 
@@ -40,6 +45,11 @@ namespace StatePattern.Enemy
 
             SetEnemyCount();
             UnsubscribeToEvents();
+        }
+
+        public void SpawnExtraEnemy(EnemyController enemyController,int count)
+        {
+
         }
 
         private void SetEnemyCount()
@@ -63,6 +73,10 @@ namespace StatePattern.Enemy
                 case EnemyType.Hitman:
                     enemy=new HitManController(enemyScriptableObject);
                     break;
+                case EnemyType.Robot:
+                    enemy=new CloneManController(enemyScriptableObject);
+                    enemy.CloneNumber = 2;
+                    break;
                 default:
                     enemy = new EnemyController(enemyScriptableObject);
                     break;
@@ -74,13 +88,14 @@ namespace StatePattern.Enemy
         public void EnemyDied(EnemyController deadEnemy)
         {
             activeEnemies.Remove(deadEnemy);
-            SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_DEATH);
+            SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_DEATH);    
             UIService.UpdateEnemyCount(activeEnemies.Count, spawnedEnemies);
             if (PlayerWon()) 
             {
                 SoundService.PlaySoundEffects(Sound.SoundType.GAME_WON);
                 UIService.GameWon();
             }
+            
         }
 
         public void PlayerDied()
@@ -90,6 +105,8 @@ namespace StatePattern.Enemy
                 enemy.SetState(EnemyState.DEACTIVE);
             }
         }
+
+        public void AddtoEnemyList(EnemyController enemy)=>activeEnemies.Add(enemy);
 
         private bool PlayerWon() => activeEnemies.Count == 0;
     }
