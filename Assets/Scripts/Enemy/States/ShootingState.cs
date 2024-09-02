@@ -32,6 +32,9 @@ namespace StatePattern.Enemy
                 {
                     ResetTimer();
                     Owner.Shoot();
+                    if (typeof(T) == typeof(HitManController))
+                        stateMachine.ChangeState(States.TELEPORT);
+                    
                 }
             }
         }
